@@ -1,0 +1,70 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="/components/prueba-dos-component/prueba-dos-component.html">
+
+<dom-module id="prueba-tres-component">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <p>Nombre: 
+      <input type="text" id="name" value="{{name::input}}">
+    </p>
+    <p>Apellido: 
+      <input type="text" id="lastname" value="{{lastname::input}}">
+    </p>
+    <button id="guardar" on-click ="guardarDatos"></button>
+  </template>
+  
+  <script>
+    /**
+     * `prueba-tres-component`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class PruebaTresComponent extends Polymer.Element {
+      static get is() { return 'prueba-tres-component'; }
+      static get properties() {
+        return {
+          name: {
+            type: String
+          },
+          lastaname:{
+            type: String
+          },
+          view:{
+            type: Boolean,
+            value: false
+          }
+        };
+      }
+      esFalse(view) {
+        return !this.view
+      }
+      esTrue(view) {
+        return this.view
+      }
+      cambiar() {
+        this.view = !this.view;
+        console.log(this.view);
+      }
+      guardarDatos() {
+        console.log('Guardar!!!!!!');
+        this.dispatchEvent(new CustomEvent('guardar', {
+          bubbles: true,
+          composed: true,
+          detail: {
+            name: this.name,
+            lastname: this.lastname,
+          }
+        }));
+      }
+    }
+
+    window.customElements.define(PruebaTresComponent.is, PruebaTresComponent);
+  </script>
+</dom-module>

@@ -1,0 +1,67 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="./components/prueba-dos-component/prueba-dos-component.html">
+<link rel="import" href="./components/prueba-tres-component/prueba-tres-component.html">
+
+<dom-module id="prueba-uno-component">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+   <button class="change" on-click="cambiar"> Cambiar</button>
+    <template is="dom-if" if="[[esFalse(view)]]">
+      
+      <prueba-dos-component></prueba-dos-component>
+    </template>
+    <template is="dom-if" if="[[esTrue(view)]]">
+      <prueba-tres-component on-guardar="recibirDatos"></prueba-tres-component>
+    </template>
+    <template></template>
+  </template>
+
+  <script>
+    /**
+     * `prueba-uno-component`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class PruebaUnoComponent extends Polymer.Element {
+      static get is() { return 'prueba-uno-component'; }
+      static get properties() {
+        return {
+          view: {
+            type: Boolean,
+            value: false
+          },
+          viewContact:{
+            type:Boolean,
+            value:false
+          }
+        };
+      }
+      esFalse(view) {
+        return !this.view
+      }
+      esTrue(view) {
+        return this.view
+      }
+      cambiar() {
+        this.view = !this.view;
+        this.viewContact = !this.viewContact;
+        console.log(this.view);
+        console.log(this.viewContact);
+      }
+      recibirDatos(evento) {
+        console.log('Datos: ', evento.detail);
+        this.push('contactoArray', evento.detail);
+        console.log(this.contactoArray);
+      }
+    }
+
+    window.customElements.define(PruebaUnoComponent.is, PruebaUnoComponent);
+  </script>
+</dom-module>

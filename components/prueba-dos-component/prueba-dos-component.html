@@ -1,0 +1,64 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="/components/prueba-tres-component/prueba-tres-component.html">
+
+<dom-module id="prueba-dos-component">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+      <template is="dom-repeat" items="[[contactoArray]]" as="contacto" mutable-data>
+        <p class="contacto">[[contacto.name]] [[contacto.lastname]]</p>
+      </template>    
+      <!-- <prueba-tres-component on-guardar="recibirDatos"></prueba-tres-component> -->
+  </template>
+
+  <script>
+    /**
+     * `prueba-dos-component`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class PruebaDosComponent extends Polymer.Element {
+      static get is() { return 'prueba-dos-component'; }
+      static get properties() {
+        return {
+          contactoArray: {
+            type: Array,
+            value: () => [
+              {
+                name: 'Ivan',
+                lastname: 'Martinez'
+              }
+            ]
+          },
+          view:{
+            type: Boolean,
+            value: false
+          }
+        };
+      }
+      esFalse(view) {
+        return !this.view
+      }
+      esTrue(view) {
+        return this.view
+      }
+      cambiar() {
+        this.view = !this.view;
+        console.log(this.view);
+      }
+      recibirDatos(evento) {
+        console.log('Datos: ', evento.detail);
+        this.push('contactoArray', evento.detail);
+        console.log(this.contactoArray);
+      }
+    }
+
+    window.customElements.define(PruebaDosComponent.is, PruebaDosComponent);
+  </script>
+</dom-module>

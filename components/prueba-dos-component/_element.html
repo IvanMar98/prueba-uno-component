@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="prueba-dos-component">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `prueba-dos-component`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class PruebaDosComponent extends Polymer.Element {
+      static get is() { return 'prueba-dos-component'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'prueba-dos-component'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(PruebaDosComponent.is, PruebaDosComponent);
+  </script>
+</dom-module>
